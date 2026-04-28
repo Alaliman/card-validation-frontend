@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Card Validator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-bright": "#3a3939",
+                    "on-tertiary-container": "#636565",
+                    "surface-tint": "#c6c6c7",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-background": "#e5e2e1",
+                    "primary-container": "#e2e2e2",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary-fixed": "#e5e2e1",
+                    "outline-variant": "#444748",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "surface-variant": "#353434",
+                    "surface-container": "#201f1f",
+                    "outline": "#8e9192",
+                    "tertiary": "#ffffff",
+                    "inverse-primary": "#5d5f5f",
+                    "on-tertiary": "#2f3131",
+                    "surface-container-high": "#2a2a2a",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "tertiary-container": "#e2e2e2",
+                    "secondary": "#c8c6c5",
+                    "on-surface-variant": "#c4c7c8",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "on-secondary-container": "#b7b5b4",
+                    "secondary-container": "#474746",
+                    "primary": "#ffffff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed": "#e2e2e2",
+                    "on-secondary": "#313030",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-dim": "#141313",
+                    "on-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-primary-container": "#636565",
+                    "on-primary-fixed-variant": "#454747",
+                    "surface-container-highest": "#353434",
+                    "background": "#141313",
+                    "on-primary": "#2f3131",
+                    "surface": "#141313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xl": "40px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "20px",
+                    "unit": "4px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "mono-data": ["monospace"],
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Inter"],
+                    "h2": ["Inter"],
+                    "h1": ["Inter"]
+            },
+            "fontSize": {
+                    "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #0f0f0f;
+        }
+        
+        main {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+        }
+        
+        #cardNumber {
+            background-color: rgba(22, 22, 22, 0.8);
+            border: 1px solid rgba(39, 39, 42, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        #cardNumber:focus {
+            background-color: rgba(22, 22, 22, 0.95);
+            border-color: rgba(198, 198, 199, 0.5);
+            box-shadow: 0 0 20px rgba(198, 198, 199, 0.1);
+            outline: none;
+        }
+        
+        #cardNumber::placeholder {
+            color: rgba(142, 145, 146, 0.6);
+        }
+        
+        #validateBtn {
+            background: linear-gradient(135deg, #ffffff 0%, #e2e2e2 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        #validateBtn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        #validateBtn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        #validateBtn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .api-docs-link {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 50;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(198, 198, 199, 0.05));
+            border: 1px solid rgba(198, 198, 199, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #8e9192;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .api-docs-link:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(198, 198, 199, 0.1));
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(198, 198, 199, 0.15);
+        }
+        
+        .api-docs-link .icon {
+            display: inline-flex;
+            transition: transform 0.3s ease;
+        }
+        
+        .api-docs-link:hover .icon {
+            transform: translateX(3px) translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center font-body-md text-on-surface p-4">
+<!-- Top Navigation -->
+<a class="api-docs-link" href="https://github.com/Alaliman/card-validation-api" target="_blank" rel="noopener noreferrer">
+view API Docs
+<span class="icon">
+<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+</svg>
+</span>
+</a>
+<!-- Card Container -->
+<main class="w-full max-w-md bg-surface border border-outline-variant rounded-xl p-lg flex flex-col gap-xl">
+<!-- Header -->
+<header class="flex flex-col gap-sm text-center">
+<h1 class="font-h2 text-h2 text-primary">Card Validator</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Enter your card number to check if it's valid</p>
+</header>
+<!-- Form Section -->
+<section class="flex flex-col gap-lg">
+<!-- Input Group -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface" for="cardNumber">Card Number</label>
+<div class="relative">
+<input class="w-full bg-[#161616] border border-[#27272a] rounded text-primary font-mono-data text-mono-data px-4 py-3 focus:outline-none focus:border-white transition-colors placeholder:text-outline-variant" id="cardNumber" placeholder="1234 5678 9012 3456" type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="credit_card">credit_card</span>
+</div>
+</div>
+<!-- Inline Error State -->
+<p class="font-body-sm text-body-sm text-error hidden" id="errorMessage">Please enter a valid numeric card number</p>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary text-on-primary-fixed font-label-caps text-label-caps py-4 rounded hover:bg-tertiary-fixed transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" type="button" id="validateBtn">
+<span id="btnText">Validate</span>
+<span id="loadingSpinner" class="hidden animate-spin">
+<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>
+</span>
+</button>
+</section>
+<!-- Result States (Stacked for demonstration) -->
+<section class="flex flex-col gap-md pt-md border-t border-[#27272a]">
+<!-- Valid State -->
+<div class="flex items-center gap-sm bg-[#0a1f10] border border-[#1e3b26] rounded p-sm hidden" id="validState">
+<span class="material-symbols-outlined text-[#4ade80]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-sm text-body-sm text-[#4ade80]" id="validMessage">This card number is valid</span>
+</div>
+<!-- Invalid State -->
+<div class="flex items-center gap-sm bg-[#2b0e0e] border border-[#4a1c1c] rounded p-sm hidden" id="invalidState">
+<span class="material-symbols-outlined text-error" data-icon="cancel" style="font-variation-settings: 'FILL' 1;">cancel</span>
+<span class="font-body-sm text-body-sm text-error" id="invalidMessage">This card number is not valid</span>
+</div>
+</section>
+</main>
+
+<script>
+// Format card number with spaces every 4 digits
+document.getElementById('cardNumber').addEventListener('input', (e) => {
+  let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+  let formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+  e.target.value = formattedValue;
+});
+
+document.getElementById('validateBtn').addEventListener('click', async () => {
+  const cardInput = document.getElementById('cardNumber');
+  const cardNumber = cardInput.value.trim().replace(/\s/g, '');
+  const errorMessage = document.getElementById('errorMessage');
+  const validState = document.getElementById('validState');
+  const invalidState = document.getElementById('invalidState');
+  const validateBtn = document.getElementById('validateBtn');
+  const btnText = document.getElementById('btnText');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+
+  // Hide all states initially
+  errorMessage.classList.add('hidden');
+  validState.classList.add('hidden');
+  invalidState.classList.add('hidden');
+
+  // Validate input is not empty
+  if (!cardNumber) {
+    errorMessage.textContent = 'Please enter a card number';
+    errorMessage.classList.remove('hidden');
+    return;
+  }
+
+  // Validate input is numeric
+  if (!/^\d+$/.test(cardNumber)) {
+    errorMessage.textContent = 'Please enter a valid numeric card number';
+    errorMessage.classList.remove('hidden');
+    return;
+  }
+
+  // Set loading state
+  validateBtn.disabled = true;
+  btnText.classList.add('hidden');
+  loadingSpinner.classList.remove('hidden');
+
+  try {
+    // Create AbortController for 30-second timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+    // Minimum loading time of 1500ms (1.5 seconds)
+    const minLoadingDelay = new Promise(resolve => setTimeout(resolve, 800));
+    
+    const fetchPromise = fetch('https://card-validation-api-j5eq.onrender.com/api/validate-card', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cardNumber: cardNumber }),
+      signal: controller.signal
+    }).then(response => response.json());
+
+    const [data] = await Promise.all([fetchPromise, minLoadingDelay]);
+    clearTimeout(timeoutId);
+
+    // Check if valid field exists in response
+    if ('valid' in data) {
+      const message = data.message || (data.valid ? 'This card number is valid' : 'This card number is not valid');
+      
+      if (data.valid) {
+        document.getElementById('validMessage').textContent = message;
+        validState.classList.remove('hidden');
+      } else {
+        document.getElementById('invalidMessage').textContent = message;
+        invalidState.classList.remove('hidden');
+      }
+    } else if ('error' in data) {
+      // Fallback if valid field doesn't exist
+      errorMessage.textContent = data.message || 'Error validating card';
+      errorMessage.classList.remove('hidden');
+    }
+  } catch (error) {
+    console.error('Error validating card:', error);
+
+    // Distinguish between different error types
+    if (error.name === 'AbortError') {
+      errorMessage.textContent = 'Request timed out. The server may be waking up — please try again.';
+    } else if (error instanceof TypeError || !navigator.onLine) {
+      errorMessage.textContent = 'Unable to reach the server. Please check your connection.';
+    } else {
+      errorMessage.textContent = 'Error connecting to validation service';
+    }
+
+    errorMessage.classList.remove('hidden');
+  } finally {
+    // Clear loading state
+    validateBtn.disabled = false;
+    btnText.classList.remove('hidden');
+    loadingSpinner.classList.add('hidden');
+  }
+});
+
+// Allow Enter key to trigger validation
+document.getElementById('cardNumber').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    document.getElementById('validateBtn').click();
+  }
+});
+</script>
+</body></html>
