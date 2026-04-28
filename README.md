@@ -33,13 +33,13 @@ card-validation-frontend/
 ### Prerequisites
 
 - Any modern web browser (Chrome, Firefox, Safari, Edge)
-- Backend API running at `https://card-validation-api-j5eq.onrender.com`
+- Backend API running at `https://card-validation-api-j5eq.onrender.com/api/validate-card`
 
 ### Setup
 
 1. Clone or download this repository
 2. Open `index.html` in your browser
-3. Ensure the backend API is running and accessible at `https://card-validation-api-j5eq.onrender.com`
+3. Ensure the backend API is running and accessible at `https://card-validation-api-j5eq.onrender.com/api/validate-card`
 
 ## Usage
 
@@ -131,7 +131,7 @@ The design uses:
 
 Change the fetch URL in the JavaScript section:
 ```javascript
-const response = await fetch('https://card-validation-api-j5eq.onrender.com'
+const response = await fetch('https://card-validation-api-j5eq.onrender.com/api/validate-card'
 ```
 
 ### Adjusting Minimum Loading Time
